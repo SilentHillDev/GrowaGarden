@@ -1,0 +1,36 @@
+f = @(x) x^3 - 4*x + 1;
+
+a = 0;
+b = 1;
+
+
+tol = 0.003;
+max_iter = 20;
+
+
+fprintf('Iter\t   a\t\t   b\t\t   c\t\t f(c)\t\t Interval Width\n');
+
+for iter = 1:max_iter
+    c = (a + b)/2;     
+    fc = f(c);             
+    width = b - a;          
+
+
+    fprintf('%2d\t %6f\t %.6f\t %.6f\t %.6f\t %6f\n', iter, a, b, c, fc, width);
+    
+    if abs(fc) < tol
+        fprintf('\nApproximate root found: x = %.6f (after %d iterations)\n', c, iter);
+        break;
+    end
+
+    % Update interval
+    if f(a) * fc < 0
+        b = c;
+    else
+        a = c;
+    end
+end
+
+if iter == max_iter
+    fprintf('\nMaximum iterations reached without convergence.\n');
+end
