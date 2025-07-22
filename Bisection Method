@@ -8,7 +8,7 @@ tol = 0.003;
 max_iter = 20;
 
 
-fprintf('Iter\t   a\t\t   b\t\t   c\t\t f(c)\t\t Interval Width\n');
+fprintf('Iter\t   a\t\t   b\t\t   c\t\t f(c)\n');
 
 for iter = 1:max_iter
     c = (a + b)/2;     
@@ -16,18 +16,17 @@ for iter = 1:max_iter
     width = b - a;          
 
 
-    fprintf('%2d\t %6f\t %.6f\t %.6f\t %.6f\t %6f\n', iter, a, b, c, fc, width);
+    fprintf('%d\t %.6f\t %.6f\t %.6f\t %.6f\t %6f\t \n', iter, a, b, c, fc);
     
-    if abs(fc) < tol
+    if abs(fc) < tol 
         fprintf('\nApproximate root found: x = %.6f (after %d iterations)\n', c, iter);
         break;
     end
 
-    % Update interval
     if f(a) * fc < 0
-        b = c;
-    else
         a = c;
+    else
+        b = c;
     end
 end
 
